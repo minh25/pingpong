@@ -1,6 +1,10 @@
 package game
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 type Game interface {
+	// Init initializes the game
+	Init()
 	// Start starts the game
 	Start()
 	// Stop stops the game
@@ -28,6 +32,11 @@ type game struct {
 
 var _ Game = (*game)(nil)
 
+func (g *game) Init() {
+	rl.InitWindow(800, 450, "raylib [core] example - basic window")
+	rl.SetTargetFPS(60)
+}
+
 func (g *game) Start() {
 	panic("implement me")
 }
@@ -53,7 +62,13 @@ func (g *game) Update() {
 }
 
 func (g *game) Draw() {
-	panic("implement me")
+	rl.BeginDrawing()
+
+	rl.ClearBackground(rl.RayWhite)
+
+	rl.DrawText("Congrats! You created your first window!", 190, 200, 20, rl.LightGray)
+
+	rl.EndDrawing()
 }
 
 func (g *game) Destroy() {
