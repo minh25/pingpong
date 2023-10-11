@@ -1,6 +1,9 @@
 package game
 
-import rl "github.com/gen2brain/raylib-go/raylib"
+import (
+	rl "github.com/gen2brain/raylib-go/raylib"
+	"github.com/minh25/pingpong/sprite"
+)
 
 type Game interface {
 	// Init initializes the game
@@ -28,6 +31,8 @@ type game struct {
 	isRunning bool
 	// isPaused is the flag to check if the game is paused
 	isPaused bool
+  
+  sprites []sprite.Sprite
 }
 
 var _ Game = (*game)(nil)
@@ -35,6 +40,8 @@ var _ Game = (*game)(nil)
 func (g *game) Init() {
 	rl.InitWindow(800, 450, "raylib [core] example - basic window")
 	rl.SetTargetFPS(60)
+
+  g.sprites = append(g.sprites, sprite.NewSprite(20, 40, "Hee loor"))
 }
 
 func (g *game) Start() {
@@ -66,7 +73,9 @@ func (g *game) Draw() {
 
 	rl.ClearBackground(rl.RayWhite)
 
-	rl.DrawText("Congrats! You created your first window!", 190, 200, 20, rl.LightGray)
+  for i := range g.sprites {
+    g.sprites[i].Draw()
+  }
 
 	rl.EndDrawing()
 }

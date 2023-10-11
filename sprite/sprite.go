@@ -1,5 +1,7 @@
 package sprite
 
+import rl "github.com/gen2brain/raylib-go/raylib"
+
 type Sprite interface {
 	// Draw draws the sprite
 	Draw()
@@ -10,18 +12,15 @@ type Sprite interface {
 }
 
 type sprite struct {
-	// x is the x position of the sprite
-	x int
-	// y is the y position of the sprite
-	y int
-	// texture is the texture of the sprite
-	texture string
+	x     int32
+	y     int32
+	label string
 }
 
 var _ Sprite = (*sprite)(nil)
 
 func (s *sprite) Draw() {
-	panic("implement me")
+  rl.DrawText("The first instance: " + s.label, s.x, s.y, 20, rl.LightGray)
 }
 
 func (s *sprite) Update() {
@@ -33,10 +32,10 @@ func (s *sprite) Destroy() {
 }
 
 // NewSprite creates a new sprite
-func NewSprite(x, y int, texture string) Sprite {
+func NewSprite(x, y int32, label string) Sprite {
 	return &sprite{
-		x:       x,
-		y:       y,
-		texture: texture,
+		x:     x,
+		y:     y,
+		label: label,
 	}
 }
